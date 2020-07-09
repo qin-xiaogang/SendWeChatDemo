@@ -13,7 +13,7 @@
 
 static int const MaxImagesCount = 9; //表示能够选择的最大图片数
 @interface XG_SendWechatViewController ()
-//@interface XG_SendWechatViewController ()<QBImagePickerControllerDelegate,XG_SendImageCollectionViewDelegate>
+@interface XG_SendWechatViewController ()<QBImagePickerControllerDelegate,XG_SendImageCollectionViewDelegate>
 @property (nonatomic,strong) XG_SendImageCollectionView *collectionView;
 @end
 
@@ -47,51 +47,51 @@ static int const MaxImagesCount = 9; //表示能够选择的最大图片数
 }
 #pragma mark -XG_SendImageCollectionViewDelegate
 -(void)needSelectSendImages{
-//    QBImagePickerController *imagePickerController = [QBImagePickerController new];
-//    imagePickerController.delegate = self;
-//    imagePickerController.allowsMultipleSelection = YES;
-//    imagePickerController.filterType = QBImagePickerControllerFilterTypePhotos;
-//    imagePickerController.maximumNumberOfSelection = MaxImagesCount - (int)_collectionView.imagesMutableArr.count;
-//    imagePickerController.showsNumberOfSelectedAssets = YES;
-//    [self presentViewController:imagePickerController animated:YES completion:NULL];
+    QBImagePickerController *imagePickerController = [QBImagePickerController new];
+    imagePickerController.delegate = self;
+    imagePickerController.allowsMultipleSelection = YES;
+    imagePickerController.filterType = QBImagePickerControllerFilterTypePhotos;
+    imagePickerController.maximumNumberOfSelection = MaxImagesCount - (int)_collectionView.imagesMutableArr.count;
+    imagePickerController.showsNumberOfSelectedAssets = YES;
+    [self presentViewController:imagePickerController animated:YES completion:NULL];
 }
 -(void)needShowCurrentImageWithIndex:(NSIndexPath *)indexPath{
     
 }
 #pragma mark -
 #pragma mark - QBImagePickerControllerDelegate  选择图片库
-//- (void)qb_imagePickerController:(QBImagePickerController *)imagePickerController didSelectAssets:(NSArray *)assets
-//{
-//    NSMutableArray *tepArray = [[NSMutableArray alloc] init];
-//    for (ALAsset *asset in assets) {
-//        // Do something with the asset
-//        UIImage *assetImage = [self fullResolutionImageFromALAsset:asset];
-//        [tepArray addObject:assetImage];
-//    }
-//    [self.collectionView.imagesMutableArr addObjectsFromArray:tepArray];
-//    [self.collectionView reloadData];
-//    [self dismissViewControllerAnimated:YES completion:NULL];
-//}
-//- (void)qb_imagePickerControllerDidCancel:(QBImagePickerController *)imagePickerController
-//{
-//    [self dismissViewControllerAnimated:YES completion:NULL];
-//}
-//- (UIImage *)fullResolutionImageFromALAsset:(ALAsset *)asset
-//{
-//    ALAssetRepresentation *assetRep = [asset defaultRepresentation];
-//    CGImageRef imgRef = [assetRep fullResolutionImage];
-//    UIImage *img = [UIImage imageWithCGImage:imgRef
-//                                       scale:assetRep.scale
-//                                 orientation:(UIImageOrientation)assetRep.orientation];
-//    return img;
-//}
+- (void)qb_imagePickerController:(QBImagePickerController *)imagePickerController didSelectAssets:(NSArray *)assets
+{
+    NSMutableArray *tepArray = [[NSMutableArray alloc] init];
+    for (ALAsset *asset in assets) {
+        // Do something with the asset
+        UIImage *assetImage = [self fullResolutionImageFromALAsset:asset];
+        [tepArray addObject:assetImage];
+    }
+    [self.collectionView.imagesMutableArr addObjectsFromArray:tepArray];
+    [self.collectionView reloadData];
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+- (void)qb_imagePickerControllerDidCancel:(QBImagePickerController *)imagePickerController
+{
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+- (UIImage *)fullResolutionImageFromALAsset:(ALAsset *)asset
+{
+    ALAssetRepresentation *assetRep = [asset defaultRepresentation];
+    CGImageRef imgRef = [assetRep fullResolutionImage];
+    UIImage *img = [UIImage imageWithCGImage:imgRef
+                                       scale:assetRep.scale
+                                 orientation:(UIImageOrientation)assetRep.orientation];
+    return img;
+}
 #pragma mark -Lazy
 -(XG_SendImageCollectionView *)collectionView{
     if(!_collectionView){
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
         _collectionView = [[XG_SendImageCollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
-//        _collectionView.send_delegate = self;
-//        _collectionView.controller_view = self.view;
+        _collectionView.send_delegate = self;
+        _collectionView.controller_view = self.view;
     }
     return _collectionView;
 }
